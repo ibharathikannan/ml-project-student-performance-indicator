@@ -1,0 +1,20 @@
+.git
+.github
+.claude
+
+# Frontend build artifacts -- rebuilt inside the image, never copied in from host.
+# Do NOT ignore frontend/ itself: the frontend-build stage needs its source.
+frontend/node_modules
+frontend/dist
+frontend/.angular
+
+__pycache__
+*.pyc
+*.egg-info
+
+notebook
+catboost_info
+
+.venv
+venv
+env

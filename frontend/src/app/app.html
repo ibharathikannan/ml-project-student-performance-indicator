@@ -1,0 +1,88 @@
+<main class="page">
+  <div class="card">
+    <h1>Student Exam Performance Indicator</h1>
+    <p class="subtitle">Predict a student's math score from their background and other exam scores.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="field">
+        <label for="gender">Gender</label>
+        <select id="gender" formControlName="gender">
+          <option value="" disabled selected>Select your gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="race_ethnicity">Race or Ethnicity</label>
+        <select id="race_ethnicity" formControlName="race_ethnicity">
+          <option value="" disabled selected>Select ethnicity</option>
+          <option value="group A">Group A</option>
+          <option value="group B">Group B</option>
+          <option value="group C">Group C</option>
+          <option value="group D">Group D</option>
+          <option value="group E">Group E</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="parental_level_of_education">Parental Level of Education</label>
+        <select id="parental_level_of_education" formControlName="parental_level_of_education">
+          <option value="" disabled selected>Select parent education</option>
+          <option value="associate's degree">Associate's degree</option>
+          <option value="bachelor's degree">Bachelor's degree</option>
+          <option value="high school">High school</option>
+          <option value="master's degree">Master's degree</option>
+          <option value="some college">Some college</option>
+          <option value="some high school">Some high school</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="lunch">Lunch Type</label>
+        <select id="lunch" formControlName="lunch">
+          <option value="" disabled selected>Select lunch type</option>
+          <option value="free/reduced">Free/reduced</option>
+          <option value="standard">Standard</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="test_preparation_course">Test Preparation Course</label>
+        <select id="test_preparation_course" formControlName="test_preparation_course">
+          <option value="" disabled selected>Select test preparation course</option>
+          <option value="none">None</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="reading_score">Reading Score (out of 100)</label>
+        <input id="reading_score" type="number" min="0" max="100" formControlName="reading_score" placeholder="Enter reading score" />
+      </div>
+
+      <div class="field">
+        <label for="writing_score">Writing Score (out of 100)</label>
+        <input id="writing_score" type="number" min="0" max="100" formControlName="writing_score" placeholder="Enter writing score" />
+      </div>
+
+      @if (submitted() && form.invalid) {
+        <p class="error">Please fill in all fields with valid values (scores between 0 and 100).</p>
+      }
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Predicting…' : 'Predict Math Score' }}
+      </button>
+    </form>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    @if (prediction() !== null) {
+      <div class="result">
+        Predicted Math Score: <strong>{{ prediction() | number: '1.0-2' }}</strong>
+      </div>
+    }
+  </div>
+</main>
