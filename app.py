@@ -41,7 +41,8 @@ def predict_datapoint():
         return render_template('home.html',results=results[0])
     
 
-if __name__=="__main__":
-    app.run(host="0.0.0.0")        
+if __name__ == "__main__":
+    # 0.0.0.0 allows the container to accept external requests from Azure's network routing engine
+    app.run(host="0.0.0.0", port=5000)  
 
 
