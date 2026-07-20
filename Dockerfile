@@ -7,8 +7,8 @@ WORKDIR /app
 # 3. Copy the project files
 COPY . /app
 
-# 4. Install Python dependencies cleanly
-RUN pip install --no-cache-dir -r requirements.txt
+# 4. Install Gunicorn along with your project dependencies
+RUN pip install --no-cache-dir gunicorn -r requirements.txt
 
-# 5. Define your entry point (e.g., CMD ["python", "app.py"])
-CMD ["python", "app.py"]
+# 5. Production-ready entry point binding to all interfaces on port 5000
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
