@@ -1,0 +1,28 @@
+name: Build and Push to ACR
+
+on:
+  push:
+    branches:
+      - main  # Triggers the pipeline when you push to main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # 1. Checkout repository code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # 2. Log in to Azure Container Registry (ACR)
+    - name: Azure Container Registry Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: mlprojectdocker.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    # 3. Build the Docker Image and push it to your registry
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t mlprojectdocker.azurecr.io/studentperformancemlproject:latest .
+        docker push mlprojectdocker.azurecr.io/studentperformancemlproject:latest
